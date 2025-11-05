@@ -1,0 +1,126 @@
+/*
+  ملف التنسيقات الخارجي
+  يستخدم لتطبيق تنسيقات غير موجودة في Tailwind أو تنسيقات خاصة
+  مثل تنسيقات الطباعة (Print Styles)
+*/
+
+/* --------------------------------------
+   1. تنسيقات الطباعة (Print Styles)
+   (تم إصلاحها بالكامل)
+   -------------------------------------- */
+@media print {
+  /* --- (إصلاح 1) إلغاء إخفاء المحتوى (Overflow) --- */
+
+  /* جعل الجسم والعناصر الرئيسية قابلة للتمدد لتظهر كلها في الطباعة */
+  body,
+  body > div.flex.flex-col.h-screen.overflow-hidden,
+  div.flex.flex-1.overflow-hidden.relative {
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* إخفاء العناصر غير المرغوب فيها دائمًا */
+  #header,
+  #sidebar {
+    display: none !important;
+  }
+
+  /* --- (إصلاح 2) القواعد الذكية للطباعة --- */
+
+  /* (جديد) إخفاء كلا الحاويتين افتراضيًا عند الطباعة */
+  #content-area,
+  #print-all-container {
+    display: none !important;
+  }
+
+  /* (جديد) عند طباعة "الدرس" فقط:
+     أظهر حاوية الدرس الواحد فقط */
+  body.printing-lesson #content-area {
+    display: block !important;
+    width: 100% !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* (جديد) عند طباعة "الكورس" فقط:
+     أظهر حاوية الكورس الكامل فقط */
+  body.printing-course #print-all-container {
+    display: block !important;
+    width: 100% !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* --- تنسيقات إضافية لتحسين شكل الطباعة --- */
+
+  /* (جديد) تنسيق كل درس في صفحة الطباعة */
+  .lesson-print-wrapper {
+    page-break-before: always; /* ابدأ كل درس في صفحة جديدة */
+    padding: 20px 0; /* إزالة الهوامش الزائدة */
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  /* الدرس الأول لا يحتاج لفاصل قبله */
+  .lesson-print-wrapper:first-child {
+    page-break-before: auto;
+  }
+
+  /* إزالة أي خلفيات ملونة من بطاقات الشرح عند الطباعة لتوفير الحبر */
+  .bg-blue-100,
+  .bg-green-100,
+  .bg-red-100,
+  .bg-yellow-50,
+  .bg-gray-100,
+  .bg-purple-100,
+  .bg-teal-100,
+  .bg-orange-100,
+  .bg-indigo-100,
+  .bg-green-50,
+  .bg-yellow-100 {
+    background-color: #f9f9f9 !important; /* لون رمادي فاتح جدًا بدلاً من الشفافية */
+    border: 1px solid #ccc !important;
+    padding: 10px !important;
+    box-shadow: none !important;
+    color: #000 !important; /* ضمان لون الخط أسود */
+  }
+
+  /* إظهار الإجابات في الأسئلة (لأن الأزرار لن تعمل) */
+  .quiz-answer-print,
+  .quiz-answer {
+    display: block !important;
+    visibility: visible !important;
+  }
+  .quiz-toggle-btn {
+    display: none !important; /* إخفاء زر "عرض الإجابة" */
+  }
+
+  /* إخفاء الصور إذا لزم الأمر لتوفير الحبر (يمكن إلغاء التعليق) */
+  /*
+  figure, img {
+    display: none !important;
+  }
+  */
+}
+
+/* --------------------------------------
+   2. إصلاح عرض القائمة الجانبية على الموبايل
+   -------------------------------------- */
+#sidebar {
+  right: auto;
+  left: 0;
+}
+.show-sidebar {
+  left: -100%;
+  right: auto;
+}
+#sidebar-overlay {
+  z-index: 20;
+}
+
+/* --------------------------------------
+   3. إخفاء حاوية الطباعة الكاملة في العرض العادي
+   -------------------------------------- */
+#print-all-container {
+  display: none;
+}
