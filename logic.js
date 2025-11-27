@@ -356,28 +356,36 @@ function printFullCourse() {
       // إضافة الدرس بالكامل إلى الحاوية
       // (استخدام كلاس .lesson-print-wrapper لفاصل الصفحات)
       fullCourseHtml += `
-                <div class="lesson-print-wrapper">
-                    <div class="content-text" style="font-size: 16px;"> <!-- حجم خط ثابت للطباعة -->
-                        <h2 class="text-3xl font-extrabold text-primary mb-6 border-b-4 pb-2 border-secondary/50">${lesson.title}</h2>
-                        
-                        <div class="bg-green-50 p-4 rounded-lg border-r-4 border-green-600 mb-6">
-                            <p class="font-extrabold text-green-700">🎯 الهدف من الدرس:</p>
-                            <p class="text-gray-700">${lesson.goal}</p>
-                        </div>
-                        
-                        <figure class="my-6 rounded-lg overflow-hidden border">
-                            <img src="${lesson.imagePlaceholder}" alt="${lesson.title}" class="w-full h-auto object-cover">
-                        </figure>
-                        
-                        ${mainContentHtml}
+                  <div class="lesson-print-wrapper">
+                    <div class="content-text" style="font-size: 16px;"> 
+                      <h2 class="text-3xl font-extrabold text-primary mb-6 border-b-4 pb-2 border-secondary/50">${lesson.title}</h2>
+                      
+                      <div class="bg-green-50 p-4 rounded-lg border-r-4 border-green-600 mb-6">
+                        <p class="font-extrabold text-green-700">🎯 الهدف من الدرس:</p>
+                        <p class="text-gray-700">${lesson.goal}</p>
+                      </div>
+                      
+                      <figure class="my-6 rounded-lg overflow-hidden border">
+                        <img src="${lesson.imagePlaceholder}" alt="${lesson.title}" class="w-full h-auto object-cover">
+                      </figure>
+                      
+                      ${mainContentHtml}
 
-                        <h3 class="text-2xl font-bold text-secondary mt-10 mb-4 border-t pt-4">📚 ملخص وأسئلة تقييم ذاتي</h3>
-                        <div class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500 mb-6">
-                            ${quizHtml}
-                        </div>
+                      <h3 class="text-2xl font-bold text-secondary mt-10 mb-4 border-t pt-4">📚 ملخص وأسئلة تقييم ذاتي</h3>
+                      <div class="bg-yellow-50 p-4 rounded-xl border-l-4 border-yellow-500 mb-6">
+                        ${quizHtml}
+                      </div>
+                      <div>
+                          <div style="all: unset; display: block; margin-top: 1.5rem; !important; padding-left: 30px; text-align: left; font-size: 14px;">
+                            انتهى الدرس
+                          </div>
+                          <div style="all: unset; display: block; margin-top: 1.5rem; !important; padding: 0.75rem; color: #2563eb; text-align: left; font-size: 14px;">
+                            تحياتي هشام محمد
+                          </div>
+                      </div>
                     </div>
-                </div>
-            `;
+                  </div>
+                `;
     } // نهاية اللوب
 
     printContainer.innerHTML = fullCourseHtml;
@@ -432,31 +440,3 @@ window.onload = function () {
   // 2. تحميل الدرس الأول تلقائيًا
   loadLesson("lesson-1");
 };
-// function hidePreloader() {
-//   const preloader = document.getElementById("preloader");
-//   const appContainer = document.getElementById("app");
-
-//   // 1. إخفاء شاشة التحميل بتأثير شفافية
-//   preloader.style.opacity = "0";
-
-//   // 2. إزالة شاشة التحميل نهائيًا من DOM وإظهار المحتوى بعد انتهاء التحول (500ms)
-//   setTimeout(() => {
-//     preloader.classList.add("hidden");
-//   }, 500);
-
-//   // **ملاحظة:** إظهار المحتوى يتم بعد اكتمال تحميل كل الموارد
-//   // ولكننا سنقوم بتشغيل App Init هنا للتأكد من بناء الـ DOM قبل الإخفاء التام
-//   // (في هذه الحالة، SetupNavigation سيتم تشغيلها بواسطة DOMContentLoaded)
-
-//   // إذا كنت تريد التأكد من أن جميع العناصر مرئية بعد التحميل الكامل، يمكنك إزالة
-//   // الـ "hidden" من الـ appContainer هنا بدلاً من setTimeout،
-//   // لكن بما أن setupNavigation ستعرضه، نعتمد على ترتيب الأحداث.
-// }
-
-// // 1. عند اكتمال بناء DOM فقط (لتشغيل كود التنقل الأساسي بسرعة)
-// document.addEventListener("DOMContentLoaded", () => {
-//   setupNavigation();
-// });
-
-// // 2. عند اكتمال تحميل كل شيء (بما في ذلك كل الصور والملفات الأخرى)
-// window.onload = hidePreloader;
